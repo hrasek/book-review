@@ -1,0 +1,44 @@
+# version: "3.9"
+
+services:
+    db:
+        image: postgres:16
+        container_name: postgres_db
+        restart: always
+        environment:
+            POSTGRES_USER: hrasek
+            POSTGRES_PASSWORD: heslo
+            POSTGRES_DB: laravel-10-book-review
+        ports:
+            - "5432:5432"
+        volumes:
+            - db_data:/var/lib/postgresql/data
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8080:8080
+#     laravel:
+#         build:
+#             context: .
+#             dockerfile: Dockerfile
+#         volumes:
+#             - .:/var/www/html
+#         ports:
+#             - "8000:8000"
+#         environment:
+#             - APP_ENV=local
+#             - APP_DEBUG=true
+#             - APP_KEY=base64:...
+#             - DB_CONNECTION=pgsql
+#             - DB_HOST=db
+#             - DB_PORT=5432
+#             - DB_DATABASE=l10_task_list
+#             - DB_USERNAME=yourusername
+#             - DB_PASSWORD=yourpassword
+#         depends_on:
+#             - db
+
+volumes:
+    db_data:
