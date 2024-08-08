@@ -57,7 +57,6 @@
                 </div>
             </li>
         @endforelse
-            <!-- Pagination links -->
-            {{ $books->appends(request()->query())->links() }}
+            {{ $books->appends(request()->query()) }}
     </ul>
 @endsection

@@ -25,11 +25,9 @@ class BookController extends Controller
             'highest_rated_last_6months' => $books->highestRatedLast6Months(),
             default => $books->latest()->withAvgRating()->withReviewsCount()
         };
-
-        $cacheKey = 'books:' . $filter . ':' . $title;
-//        $books = cache()->remember($cacheKey, 3600, fn() => $books->get());
-        $books = $books->paginate(20);
-
+        $page = request('page', 1);
+        $cacheKey = 'books:' . $filter . ':' . $title . 'page:' . $page;
+        $books = cache()->remember($cacheKey, 3600, fn() => $books->paginate(20));
         return view('books.index', ['books' => $books]);
     }
 
